@@ -53,24 +53,14 @@ app.get("/products/:id", async (req, res) => {
 
 // Create a new product
 app.post("/products", async (req, res) => {
-  const {
-    name,
-    price,
-    image,
-    colors,
-    company,
-    description,
-    category,
-    shipping,
-  } = req.body;
-
-  const newColors = JSON.stringify(colors);
+  const { name, price, image, company, description, category, shipping } =
+    req.body;
 
   const connection = await getConnection();
 
   try {
     const [result] = await connection.query(
-      `INSERT INTO products (name, price, image, colors, company, description, category, shipping) VALUES ('${name}', '${price}', '${image}', '${newColors}', '${company}', '${description}', '${category}', ${shipping})`
+      `INSERT INTO products (name, price, image, company, description, category, shipping) VALUES ('${name}', '${price}', '${image}', '${company}', '${description}', '${category}', ${shipping})`
     );
     res.json({
       message: "Product added successfully",
@@ -87,12 +77,15 @@ app.post("/products", async (req, res) => {
 // Update a product by ID
 app.put("/products/:id", async (req, res) => {
   const productId = req.params.id;
-  const { name, price } = req.body;
+  const { name, price, image, company, description, category, shipping } =
+    req.body;
+
   const connection = await getConnection();
+
   try {
     const [result] = await connection.query(
-      "UPDATE products SET name = ?, price = ? WHERE id = ?",
-      [name, price, productId]
+      "UPDATE products SET name = ?, price = ?, image = ?, company = ?, description = ?, category = ?, shipping = ? WHERE id = ?",
+      [name, price, image, company, description, category, shipping, productId]
     );
     if (result.affectedRows === 0) {
       res.status(404).json({ error: "Product not found" });

@@ -4,7 +4,7 @@ const mysql = require("mysql2/promise");
 const pool = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "Mks@1234",
+  password: "mks@12345",
   database: "grocery_db",
   waitForConnections: true,
   connectionLimit: 10,
@@ -20,7 +20,6 @@ async function createProductsTable() {
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         price INT NOT NULL,
-        colors VARCHAR(255) NOT NULL,
         company VARCHAR(255) NOT NULL,
         image VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
