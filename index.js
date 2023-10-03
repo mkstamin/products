@@ -1,12 +1,16 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { createProductsTable, getConnection } = require("./schema");
+const cors = require("cors");
 
 const app = express();
 const port = 3000;
 
 // Create products table if not exists
 createProductsTable();
+
+// Enable All CORS Requests
+app.use(cors());
 
 app.use(bodyParser.json());
 
